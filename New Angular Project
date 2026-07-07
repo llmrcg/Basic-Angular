@@ -1,0 +1,4 @@
+ng new item-app
+cd item-app
+ng generate component components/item-list
+ng generate service services/item
