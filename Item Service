@@ -1,0 +1,43 @@
+import { Injectable } from '@angular/core';
+import { Observable, of, throwError } from 'rxjs';
+import { delay } from 'rxjs/operators';
+import { Item } from '../models/item.model';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ItemService {
+
+  // Change this to true if you want to test error handling.
+  private simulateError = false;
+
+  private items: Item[] = [
+    {
+      id: 1,
+      name: 'Laptop',
+      description: 'A portable computer for work and study.'
+    },
+    {
+      id: 2,
+      name: 'Smartphone',
+      description: 'A handheld communication device.'
+    },
+    {
+      id: 3,
+      name: 'Headphones',
+      description: 'Used for listening to music and calls.'
+    }
+  ];
+
+  constructor() {}
+
+  getItems(): Observable<Item[]> {
+
+    if (this.simulateError) {
+      return throwError(() => new Error('Unable to retrieve items.'));
+    }
+
+    return of(this.items).pipe(delay(1000));
+  }
+
+}
